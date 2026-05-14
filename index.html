@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Grand Large Quiz</title>
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+  <div id="cover">
+    <div class="cover-inner">
+      <div class="cover-wave">🌊</div>
+      <h1 class="cover-title">Grand Large<br><em>Quiz</em></h1>
+      <div class="cover-rounds">
+        <div class="cover-round"><span class="cr-num">1</span><span class="cr-name">Culture G</span><span class="cr-meta">21 questions · 20 s</span></div>
+        <div class="cover-round"><span class="cr-num">2</span><span class="cr-name">Bonus</span><span class="cr-meta">1 record · 20 s</span></div>
+        <div class="cover-round"><span class="cr-num">3</span><span class="cr-name">Blind test</span><span class="cr-meta">10 extraits · 30 s</span></div>
+        <div class="cover-round"><span class="cr-num">4</span><span class="cr-name">Émojis</span><span class="cr-meta">5 films/séries · 20 s</span></div>
+        <div class="cover-round"><span class="cr-num">5</span><span class="cr-name">Vrai ou faux</span><span class="cr-meta">10 questions · 10 s</span></div>
+      </div>
+      <div class="cover-rules">
+        <p>Équipes de 3 · Réponses sur papier</p>
+        <p>1 point par bonne réponse</p>
+        <p>Chaque équipe pose <strong>1 joker</strong> sur la manche de son choix → points doublés</p>
+      </div>
+      <button id="startBtn">Commencer →</button>
+    </div>
+  </div>
+
+  <main id="quizShell" class="quiz-shell" hidden>
+    <section class="stage">
+      <div class="topline">
+        <span id="roundKicker" class="tl-round">—</span>
+        <div class="tl-timer" id="timerWrap">
+          <svg class="timer-ring" viewBox="0 0 44 44" aria-hidden="true">
+            <circle cx="22" cy="22" r="18" class="ring-track"></circle>
+            <circle cx="22" cy="22" r="18" class="ring-fill" id="ringFill"
+              stroke-dasharray="113.1" stroke-dashoffset="113.1"
+              transform="rotate(-90 22 22)"></circle>
+          </svg>
+          <span id="timerDisplay">—</span>
+        </div>
+        <span id="progressLabel" class="tl-progress">—</span>
+      </div>
+
+      <div class="content-area" id="contentArea"></div>
+
+      <div class="answer-bar" id="answerBar" hidden>
+        <span class="answer-label">Réponse</span>
+        <strong id="answerText"></strong>
+      </div>
+    </section>
+
+    <nav class="mc-bar">
+      <button id="prevBtn">←</button>
+      <button id="nextBtn">Suivante →</button>
+      <div class="mc-sep"></div>
+      <button id="revealBtn">Réponse</button>
+      <button id="playBtn" hidden>▶ Play</button>
+      <button id="stopBtn" hidden>■ Stop</button>
+      <div class="mc-sep"></div>
+      <button id="pauseBtn">Pause</button>
+      <button id="resetBtn">Reset</button>
+      <div class="mc-sep"></div>
+      <select id="jumpMenu" aria-label="Aller à une question"></select>
+      <button id="fsBtn">Plein écran</button>
+    </nav>
+  </main>
+
+  <div id="ytShell" class="yt-shell" hidden aria-hidden="true">
+    <iframe id="ytFrame" allow="autoplay; encrypted-media"></iframe>
+  </div>
+
+  <script src="./app.js"></script>
+</body>
+</html>
