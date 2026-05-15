@@ -24,7 +24,7 @@
         <p>1 point par bonne réponse</p>
         <p>Chaque équipe pose <strong>1 joker</strong> sur la manche de son choix → points doublés</p>
       </div>
-      <button id="startBtn">Commencer →</button>
+      <button id="startBtn" type="button" onclick="if (window.quizStart) window.quizStart()">Commencer →</button>
     </div>
   </div>
 
@@ -70,6 +70,6 @@
 
   <audio id="audioPlayer" preload="auto"></audio>
 
-  <script src="./app.js"></script>
+  <script src="./app.js?v=8"></script>
 </body>
 </html>
