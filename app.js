@@ -31,16 +31,49 @@ const bonusData = [
 ];
 
 const blindData = [
-  ["The B-52's - Rock Lobster", "n4QSYx4wVQg", 7],
-  ["Billie Eilish - Ocean Eyes", "viimfQi_pUw", 18],
-  ["The Police - Message in a Bottle", "MbXWrmQW-OE", 14],
-  ["Brigitte Bardot - La Madrague", "aN0kPQ085z0", 0],
-  ["Olivia Dean - Dive", "NM4e606yFJg", 32],
-  ["Kendrick Lamar - Swimming Pools (Drank)", "B5YNiCfWC3A", 28],
-  ["Orelsan feat. Stromae - La pluie", "37StRy0LEbI", 39],
-  ["Julien Doré - Paris-Seychelles", "cmE_aahc448", 35],
-  ["Metronomy - The Bay", "DtVBCG6ThDk", 31],
-  ["The Kooks - Seaside", "OgOwQvNzD-k", 0]
+  ["The B-52's - Rock Lobster", "./audio/01-rock-lobster.mp3.mp3"],
+  ["Billie Eilish - Ocean Eyes", "./audio/02-ocean-eyes.mp3.mp3"],
+  ["The Police - Message in a Bottle", "./audio/03-message-in-a-bottle.mp3.mp3"],
+  ["Brigitte Bardot - La Madrague", "./audio/04-la-madrague.mp3.mp3"],
+  ["Olivia Dean - Dive", "./audio/05-dive.mp3.mp3"],
+  ["Kendrick Lamar - Swimming Pools (Drank)", "./audio/06-swimming-pools.mp3.mp3"],
+  ["Orelsan feat. Stromae - La pluie", "./audio/07-la-pluie.mp3.mp3"],
+  ["Julien Doré - Paris-Seychelles", "./audio/08-paris-seychelles.mp3.mp3"],
+  ["Metronomy - The Bay", "./audio/09-the-bay.mp3.mp3"],
+  ["The Kooks - Seaside", "./audio/10-seaside.mp3.mp3"]
+];
+
+const artData = [
+  {
+    q: "Quel artiste a peint ce tableau ?",
+    a: "Hokusai",
+    title: "La Grande Vague de Kanagawa",
+    image: "https://commons.wikimedia.org/wiki/Special:FilePath/Great_Wave_off_Kanagawa2.jpg"
+  },
+  {
+    q: "Quel artiste a peint ce tableau ?",
+    a: "J. M. W. Turner",
+    title: "Le Dernier Voyage du Téméraire",
+    image: "https://commons.wikimedia.org/wiki/Special:FilePath/Turner%2C_The_Fighting_Temeraire.jpg"
+  },
+  {
+    q: "Quel artiste a peint ce tableau ?",
+    a: "Sandro Botticelli",
+    title: "La Naissance de Vénus",
+    image: "https://commons.wikimedia.org/wiki/Special:FilePath/Sandro_Botticelli_-_La_nascita_di_Venere_-_Google_Art_Project_-_edited.jpg"
+  },
+  {
+    q: "Quel artiste a peint ce tableau ?",
+    a: "Georges Seurat",
+    title: "Une baignade à Asnières",
+    image: "./images/seurat.jpg"
+  },
+  {
+    q: "Quel artiste a réalisé cette œuvre ?",
+    a: "David Hockney",
+    title: "A Bigger Splash",
+    image: "https://upload.wikimedia.org/wikipedia/en/b/b7/A_Bigger_Splash%2C_David_Hockney%2C_1967.jpg"
+  }
 ];
 
 const emojiData = [
@@ -65,35 +98,3 @@ const trueFalseData = [
 ];
 
 const culture = cultureData.map(([level, tag, q, a], index) => ({
-  type: "culture",
-  round: "Culture G",
-  level,
-  tag,
-  num: index + 1,
-  q,
-  a,
-  timer: CULTURE_SECONDS
-}));
-
-const bonus = bonusData.map(([level, tag, q, a], index) => ({
-  type: "culture",
-  round: "Bonus",
-  level,
-  tag,
-  num: index + 1,
-  q,
-  a,
-  timer: CULTURE_SECONDS
-}));
-
-const blind = blindData.map(([a, ytId, start], index) => ({
-  type: "blind",
-  round: "Blind test",
-  num: index + 1,
-  q: `Extrait ${index + 1}`,
-  a,
-  ytId,
-  start,
-  end: start + BLIND_SECONDS,
-  timer: BLIND_SECONDS
-}));
