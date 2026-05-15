@@ -3,31 +3,31 @@ const TRUE_FALSE_SECONDS = 10;
 const BLIND_SECONDS = 30;
 
 const cultureData = [
-  ["Facile", "Food", "Dans une brandade traditionnelle, quel poisson utilise-t-on ?", "La morue / le cabillaud"],
-  ["Facile", "Animal", "Quel est le plus gros poisson du monde ?", "Le requin-baleine"],
-  ["Facile", "Mode", "Quelle marque bretonne est célèbre pour ses marinières ?", "Armor Lux"],
-  ["Facile", "Cinéma", "Dans Le Monde de Nemo, de quelle espèce est Dory ?", "Un chirurgien bleu"],
-  ["Facile", "Géo", "Comment appelle-t-on la zone où la terre rencontre la mer ?", "Le littoral / le rivage"],
-  ["Facile", "Géo", "Quel est le plus grand océan du monde ?", "L'océan Pacifique"],
-  ["Moyenne", "Science", "Quel phénomène fait varier le niveau de la mer chaque jour ?", "La marée"],
-  ["Moyenne", "Animal", "Quel animal est surnommé la licorne des mers ?", "Le narval"],
-  ["Moyenne", "Food", "Comment appelle-t-on les œufs de poisson volant servis sur les sushis ?", "Le tobiko"],
-  ["Moyenne", "Géo", "Quelle ligne imaginaire sépare l'Atlantique Nord de l'Atlantique Sud ?", "L'Équateur"],
-  ["Moyenne", "WTF", "Comment appelle-t-on la grande zone de déchets plastiques du Pacifique nord ?", "Le vortex de déchets du Pacifique nord"],
-  ["Moyenne", "Histoire", "Quel était le célèbre navire de recherche du commandant Cousteau ?", "La Calypso"],
-  ["Moyenne", "Animal", "Combien de bras et tentacules possède un calamar ?", "10 : 8 bras et 2 tentacules"],
-  ["Moyenne", "Science", "Quel organisme marin produit une grande partie de l'oxygène terrestre ?", "Le phytoplancton"],
-  ["Moyenne", "Géo", "Quel détroit sépare l'Europe de l'Afrique ?", "Le détroit de Gibraltar"],
-  ["Moyenne", "WTF", "Quelle créature marine peut casser une carapace d'un coup ultra-rapide ?", "La crevette-mante / squille"],
-  ["Difficile", "Animal", "Quel poisson est connu pour être entièrement à sang chaud ?", "L'opah / lampris"],
-  ["Difficile", "Mystère", "Quel nom a-t-on donné au mystérieux son sous-marin capté en 1997 ?", "Le Bloop"],
-  ["Difficile", "Pirates", "Quel pirate gallois était surnommé Black Bart ?", "Bartholomew Roberts"],
-  ["Difficile", "Science", "À partir d'environ quelle profondeur la lumière du soleil disparaît-elle totalement ?", "Environ 1000 mètres"],
-  ["Difficile", "Géo", "Quelle mer n'a aucune côte terrestre ?", "La mer des Sargasses"]
+  ["Facile", "Cinéma", "Quel célèbre navire britannique coule en 1912 après avoir heurté un iceberg ?", "Le Titanic"],
+  ["Facile", "Animal", "Quel animal marin est connu pour avoir trois cœurs ?", "La pieuvre / le poulpe"],
+  ["Facile", "TV", "Quelle émission télé française a pour décor un fort en mer près de La Rochelle ?", "Fort Boyard"],
+  ["Facile", "Aventure", "Dans Koh-Lanta, quel objet peut protéger un candidat de l'élimination ?", "Le collier d'immunité"],
+  ["Facile", "Mythologie", "Dans L'Odyssée, quel héros erre en mer pendant dix ans ?", "Ulysse"],
+  ["Moyenne", "Science", "Quel courant marin chaud influence fortement le climat de l'Europe occidentale ?", "Le Gulf Stream"],
+  ["Moyenne", "Littérature", "Quel écrivain a écrit Le Vieil Homme et la Mer ?", "Ernest Hemingway"],
+  ["Moyenne", "Littérature", "Quel roman met en scène la chasse d'une baleine blanche ?", "Moby Dick"],
+  ["Moyenne", "Cinéma", "Quel réalisateur a signé Abyss, Titanic et Avatar : La Voie de l'eau ?", "James Cameron"],
+  ["Moyenne", "Géo", "Quel océan porte le nom d'un titan de la mythologie grecque ?", "L'océan Atlantique"],
+  ["Moyenne", "Santé", "Quelle maladie liée au manque de vitamine C touchait beaucoup les marins ?", "Le scorbut"],
+  ["Moyenne", "Navigation", "Quelle unité de vitesse est utilisée en navigation maritime ?", "Le nœud"],
+  ["Moyenne", "Animal", "Quel animal marin peut dormir avec une moitié de cerveau éveillée ?", "Le dauphin"],
+  ["Moyenne", "Food", "Quel poisson venimeux japonais doit être préparé par des chefs spécialement formés ?", "Le fugu"],
+  ["Moyenne", "Pop culture", "Dans Friends, qui explique que les homards tombent amoureux pour la vie ?", "Phoebe"],
+  ["Difficile", "Pirates", "Dans Pirates des Caraïbes, quel est le nom du navire de Davy Jones ?", "Le Hollandais volant"],
+  ["Difficile", "Phobie", "Quel mot désigne la peur intense des profondeurs marines ?", "La thalassophobie"],
+  ["Difficile", "Exploration", "Quel navigateur a donné son nom au détroit situé au sud de l'Amérique du Sud ?", "Magellan"],
+  ["Difficile", "Géo", "Dans quelle mer se jette le Jourdain ?", "La mer Morte"],
+  ["Difficile", "Musique", "Quelle chanson de Luis Fonsi et Daddy Yankee a un clip tourné à Porto Rico ?", "Despacito"],
+  ["Difficile", "Histoire", "Quel type de bateau est associé aux Vikings ?", "Le drakkar"]
 ];
 
 const bonusData = [
-  ["Bonus", "Record", "Record Guinness de souffle retenu sous l'eau : environ combien de minutes ?", "29 minutes 03 secondes"]
+  ["Bonus", "Record", "En apnée statique, le record du monde dépasse environ combien de minutes ?", "Environ 24 minutes"]
 ];
 
 const blindData = [
