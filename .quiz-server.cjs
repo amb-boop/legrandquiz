@@ -11,7 +11,8 @@ const types = {
   ".jpeg": "image/jpeg",
   ".png": "image/png",
   ".webp": "image/webp",
-  ".avif": "image/avif"
+  ".avif": "image/avif",
+  ".mp3": "audio/mpeg"
 };
 
 http
