@@ -48,31 +48,31 @@ const artData = [
     q: "Quel artiste a peint ce tableau ?",
     a: "Hokusai",
     title: "La Grande Vague de Kanagawa",
-    image: "https://commons.wikimedia.org/wiki/Special:FilePath/Great_Wave_off_Kanagawa2.jpg"
+    image: "./tableaux/01-hokusai.jpg.jpg"
   },
   {
     q: "Quel artiste a peint ce tableau ?",
     a: "J. M. W. Turner",
     title: "Le Dernier Voyage du Téméraire",
-    image: "https://commons.wikimedia.org/wiki/Special:FilePath/Turner%2C_The_Fighting_Temeraire.jpg"
+    image: "./tableaux/02-turner.jpg"
   },
   {
     q: "Quel artiste a peint ce tableau ?",
     a: "Sandro Botticelli",
     title: "La Naissance de Vénus",
-    image: "https://commons.wikimedia.org/wiki/Special:FilePath/Sandro_Botticelli_-_La_nascita_di_Venere_-_Google_Art_Project_-_edited.jpg"
+    image: "./tableaux/03-botticelli.jpg"
   },
   {
     q: "Quel artiste a peint ce tableau ?",
     a: "Georges Seurat",
     title: "Une baignade à Asnières",
-    image: "./images/seurat.jpg"
+    image: "./tableaux/04-seurat.jpg"
   },
   {
     q: "Quel artiste a réalisé cette œuvre ?",
     a: "David Hockney",
     title: "A Bigger Splash",
-    image: "https://upload.wikimedia.org/wikipedia/en/b/b7/A_Bigger_Splash%2C_David_Hockney%2C_1967.jpg"
+    image: "./tableaux/05-hockney.jpg"
   }
 ];
 
@@ -98,304 +98,3 @@ const trueFalseData = [
 ];
 
 const culture = cultureData.map(([level, tag, q, a], index) => ({
-  type: "culture",
-  round: "Culture G",
-  level,
-  tag,
-  num: index + 1,
-  q,
-  a,
-  timer: CULTURE_SECONDS
-}));
-
-const bonus = bonusData.map(([level, tag, q, a], index) => ({
-  type: "culture",
-  round: "Bonus",
-  level,
-  tag,
-  num: index + 1,
-  q,
-  a,
-  timer: CULTURE_SECONDS
-}));
-
-const blind = blindData.map(([a, audioSrc], index) => ({
-  type: "blind",
-  round: "Blind test",
-  num: index + 1,
-  q: `Extrait ${index + 1}`,
-  a,
-  audioSrc,
-  timer: BLIND_SECONDS
-}));
-
-const art = artData.map((item, index) => ({
-  ...item,
-  type: "art",
-  round: "Tableaux",
-  num: index + 1,
-  timer: CULTURE_SECONDS
-}));
-
-const emojis = emojiData.map(([q, a], index) => ({
-  type: "emoji",
-  round: "Émojis",
-  num: index + 1,
-  q,
-  a,
-  timer: CULTURE_SECONDS
-}));
-
-const trueFalse = trueFalseData.map(([q, a], index) => ({
-  type: "truefalse",
-  round: "Vrai ou faux",
-  num: index + 1,
-  q,
-  a,
-  timer: TRUE_FALSE_SECONDS
-}));
-
-const slides = [...culture, ...bonus, ...blind, ...art, ...emojis, ...trueFalse];
-const roundTotals = slides.reduce((totals, slide) => {
-  totals[slide.round] = (totals[slide.round] || 0) + 1;
-  return totals;
-}, {});
-
-const state = {
-  index: Number(localStorage.getItem("glq:index") || 0),
-  timer: 0,
-  timerMax: 0,
-  timerId: null,
-  paused: false,
-  revealed: false
-};
-
-const el = {
-  cover: document.getElementById("cover"),
-  shell: document.getElementById("quizShell"),
-  roundKicker: document.getElementById("roundKicker"),
-  timerWrap: document.getElementById("timerWrap"),
-  timerDisp: document.getElementById("timerDisplay"),
-  ringFill: document.getElementById("ringFill"),
-  progress: document.getElementById("progressLabel"),
-  content: document.getElementById("contentArea"),
-  answerBar: document.getElementById("answerBar"),
-  answerText: document.getElementById("answerText"),
-  jumpMenu: document.getElementById("jumpMenu"),
-  playBtn: document.getElementById("playBtn"),
-  stopBtn: document.getElementById("stopBtn"),
-  pauseBtn: document.getElementById("pauseBtn"),
-  audioPlayer: document.getElementById("audioPlayer")
-};
-
-const CIRC = 2 * Math.PI * 18;
-
-function startTimer(seconds) {
-  clearInterval(state.timerId);
-  state.timer = seconds;
-  state.timerMax = seconds;
-  state.paused = false;
-  el.pauseBtn.textContent = "Pause";
-  renderTimer();
-  state.timerId = setInterval(tick, 1000);
-}
-
-function tick() {
-  if (state.paused) return;
-  state.timer = Math.max(0, state.timer - 1);
-  renderTimer();
-  if (state.timer === 0) clearInterval(state.timerId);
-}
-
-function resetTimer() {
-  clearInterval(state.timerId);
-  state.timer = 0;
-  state.timerMax = 0;
-  state.paused = false;
-  el.pauseBtn.textContent = "Pause";
-  renderTimer();
-}
-
-function pauseTimer() {
-  if (state.timerMax === 0) return;
-  state.paused = !state.paused;
-  el.pauseBtn.textContent = state.paused ? "Reprendre" : "Pause";
-}
-
-function renderTimer() {
-  if (state.timerMax === 0) {
-    el.timerDisp.textContent = "—";
-    el.timerWrap.className = "tl-timer";
-    el.ringFill.style.strokeDashoffset = CIRC;
-    return;
-  }
-  el.timerDisp.textContent = String(state.timer);
-  el.ringFill.style.strokeDashoffset = CIRC * (1 - state.timer / state.timerMax);
-  el.timerWrap.className = state.timer === 0 ? "tl-timer done" : state.timer <= 5 ? "tl-timer low" : "tl-timer";
-}
-
-function playMedia() {
-  const slide = slides[state.index];
-  if (slide.type !== "blind") return;
-
-  stopMedia();
-  el.audioPlayer.src = slide.audioSrc;
-  el.audioPlayer.currentTime = 0;
-  el.audioPlayer.play();
-  startTimer(slide.timer);
-}
-
-function stopMedia() {
-  if (!el.audioPlayer) return;
-  el.audioPlayer.pause();
-  el.audioPlayer.currentTime = 0;
-  el.audioPlayer.removeAttribute("src");
-}
-
-function buildContent(slide) {
-  if (slide.type === "culture") {
-    const bonusClass = slide.round === "Bonus" ? " bonus" : "";
-    return `
-      <div class="culture-card">
-        <p class="round-label${bonusClass}">${slide.level} · ${slide.tag}</p>
-        <h1>${slide.q}</h1>
-      </div>
-    `;
-  }
-
-  if (slide.type === "blind") {
-    return `
-      <div class="blind-card">
-        <div class="blind-note">♪</div>
-        <div class="blind-extrait">${slide.q}</div>
-        <div class="blind-hint">Titre + artiste</div>
-      </div>
-    `;
-  }
-
-  if (slide.type === "emoji") {
-    return `
-      <div class="emoji-card">
-        <p class="round-label">Film · série · émission</p>
-        <div class="emoji-display">${slide.q}</div>
-      </div>
-    `;
-  }
-
-  if (slide.type === "art") {
-    return `
-      <div class="visual-card">
-        <div class="visual-image-wrap"><img src="${slide.image}" alt=""></div>
-        <p class="visual-label">${slide.q}</p>
-      </div>
-    `;
-  }
-
-  if (slide.type === "truefalse") {
-    return `
-      <div class="truefalse-card">
-        <p class="round-label">Vrai ou faux</p>
-        <h1>${slide.q}</h1>
-      </div>
-    `;
-  }
-
-  return "";
-}
-
-function render() {
-  const slide = slides[state.index];
-  stopMedia();
-  state.revealed = false;
-  el.answerBar.hidden = true;
-  el.roundKicker.textContent = slide.round;
-  el.progress.textContent = `${slide.num} / ${roundTotals[slide.round]}`;
-  el.content.innerHTML = buildContent(slide);
-  el.playBtn.hidden = slide.type !== "blind";
-  el.stopBtn.hidden = slide.type !== "blind";
-  resetTimer();
-  el.jumpMenu.value = String(state.index);
-  localStorage.setItem("glq:index", String(state.index));
-}
-
-function buildJumpMenu() {
-  el.jumpMenu.innerHTML = slides
-    .map((slide, index) => `<option value="${index}">${slide.round} — Q${slide.num}</option>`)
-    .join("");
-}
-
-function startSlideTimerIfNeeded() {
-  const slide = slides[state.index];
-  if (slide.type !== "blind") startTimer(slide.timer);
-}
-
-function goNext() {
-  if (state.index >= slides.length - 1) return;
-  state.index += 1;
-  render();
-  startSlideTimerIfNeeded();
-}
-
-function goPrev() {
-  if (state.index <= 0) return;
-  state.index -= 1;
-  render();
-}
-
-function toggleReveal() {
-  state.revealed = !state.revealed;
-  el.answerText.textContent = slides[state.index].a;
-  el.answerBar.hidden = !state.revealed;
-}
-
-document.getElementById("startBtn").addEventListener("click", () => {
-  state.index = 0;
-  localStorage.setItem("glq:index", "0");
-  el.cover.remove();
-  el.shell.removeAttribute("hidden");
-  render();
-  startSlideTimerIfNeeded();
-});
-
-document.getElementById("nextBtn").addEventListener("click", goNext);
-document.getElementById("prevBtn").addEventListener("click", goPrev);
-document.getElementById("revealBtn").addEventListener("click", toggleReveal);
-document.getElementById("playBtn").addEventListener("click", playMedia);
-document.getElementById("stopBtn").addEventListener("click", () => {
-  stopMedia();
-  resetTimer();
-});
-document.getElementById("pauseBtn").addEventListener("click", pauseTimer);
-document.getElementById("resetBtn").addEventListener("click", resetTimer);
-document.getElementById("fsBtn").addEventListener("click", () => {
-  if (!document.fullscreenElement) document.documentElement.requestFullscreen();
-  else document.exitFullscreen();
-});
-el.jumpMenu.addEventListener("change", () => {
-  state.index = Math.max(0, Math.min(slides.length - 1, Number(el.jumpMenu.value)));
-  render();
-});
-document.addEventListener("keydown", (event) => {
-  if (event.target.matches("select, input")) return;
-  if (event.key === "ArrowRight" || event.key === " ") {
-    event.preventDefault();
-    goNext();
-  }
-  if (event.key === "ArrowLeft") {
-    event.preventDefault();
-    goPrev();
-  }
-  if (event.key.toLowerCase() === "r") toggleReveal();
-  if (event.key.toLowerCase() === "p") playMedia();
-  if (event.key.toLowerCase() === "s") {
-    stopMedia();
-    resetTimer();
-  }
-  if (event.key.toLowerCase() === "f") {
-    if (!document.fullscreenElement) document.documentElement.requestFullscreen();
-    else document.exitFullscreen();
-  }
-});
-
-buildJumpMenu();
-render();
